@@ -25,7 +25,7 @@ def LSR(n):
 sys.setrecursionlimit(1000000)
 
 def main():
-    A = LI()
-    print(A.index(0)+1)
+    s = input()
+    print(s)
 
 main()
