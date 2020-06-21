@@ -26,6 +26,6 @@ sys.setrecursionlimit(1000000)
 
 def main():
     s = input()
-    print(s[0:3])
+    print(s)
 
 main()

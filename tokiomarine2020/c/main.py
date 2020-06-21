@@ -25,7 +25,23 @@ def LSR(n):
 sys.setrecursionlimit(1000000)
 
 def main():
-    s = input()
-    print(s)
+    N, K = LI()
+    A = LI()
+
+    for _ in range(K):
+        B = [0]*(N+1)
+        for i in range(N):
+            l = max(i - A[i], 0)
+            r = min(A[i] + i + 1, N)
+            B[l] += 1
+            B[r] -= 1
+        for i in range(N):
+            B[i+1] += B[i]
+
+        if A == B:
+            break
+        A = B
+    print(*A[:-1], sep=" ")
+
 
 main()

@@ -25,7 +25,13 @@ def LSR(n):
 sys.setrecursionlimit(1000000)
 
 def main():
-    s = input()
-    print(s)
+    A, V = LI()
+    B, W = LI()
+    T = I()
+    
+    if V - W > 0:
+        print("YES" if (V - W) * T >= abs(A - B) else "NO")
+    else:
+        print("NO")
 
 main()

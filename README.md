@@ -17,3 +17,17 @@ cp ./template.json (acc config-dir)/pypy
 oj login https://atcoder.jp/
 oj login https://beta.atcoder.jp/
 ```
+
+
+## test
+
+```
+cd task_dir
+acct
+```
+
+## submit
+
+```
+acc s
+```
