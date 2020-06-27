@@ -25,11 +25,22 @@ def LSR(n):
 sys.setrecursionlimit(1000000)
 
 def main():
-    N = I()
+    N, M, K = LI()
+    A = LI()
+    B = LI()
+
+    a = [0]+list(accumulate(A))
+    b = [0]+list(accumulate(B))
 
     ans = 0
-    for i in range(1, N+1):
-        ans += 0 if i % 3 == 0 or i % 5 == 0 else i
+
+    for i in range(N + 1):
+        if a[i] > K:
+            continue
+        rest = K - a[i]
+        j = bisect.bisect_right(b, rest)
+        ans = max(ans, i + j - 1)
+
     print(ans)
-    
+
 main()

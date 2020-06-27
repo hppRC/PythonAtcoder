@@ -25,11 +25,11 @@ def LSR(n):
 sys.setrecursionlimit(1000000)
 
 def main():
-    N = I()
-
+    S = input()
+    T = input()
     ans = 0
-    for i in range(1, N+1):
-        ans += 0 if i % 3 == 0 or i % 5 == 0 else i
-    print(ans)
-    
+    for (s, t) in zip(S, T):
+        ans += 0 if s == t else 1
+    print(ans) 
+
 main()

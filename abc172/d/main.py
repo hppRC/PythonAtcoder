@@ -2,6 +2,7 @@
 from collections import defaultdict, deque
 from heapq import heappush, heappop
 from itertools import permutations, accumulate
+import copy
 import sys
 import math
 import bisect
@@ -24,12 +25,17 @@ def LSR(n):
 
 sys.setrecursionlimit(1000000)
 
+
 def main():
     N = I()
-
-    ans = 0
-    for i in range(1, N+1):
-        ans += 0 if i % 3 == 0 or i % 5 == 0 else i
-    print(ans)
+    c = [1] * (N + 1)
     
+    for i in range(2, N + 1):
+        k = i
+        while k <= N:
+            c[k] += 1
+            k += i
+
+    ans = sum(i * c for (i, c) in enumerate(c))
+    print(ans)
 main()
