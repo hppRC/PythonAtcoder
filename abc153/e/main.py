@@ -23,8 +23,8 @@ dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 MOD = 1000000007
 
 def main():
-    s = input()
-    print(s)
+    H, N = LI()
+    AB = [LI() for _ in range(N)]
 
 
 main()
