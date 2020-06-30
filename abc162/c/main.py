@@ -25,7 +25,13 @@ def LSR(n):
 sys.setrecursionlimit(1000000)
 
 def main():
-    s = input()
-    print(s)
+    K = I()
+    ans = 0
+    for i in range(1, K+1):
+        for j in range(1, K+1):
+            for k in range(1, K+1):
+                ans += math.gcd(math.gcd(i, j), k)
+    print(ans)
+
 
 main()

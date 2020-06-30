@@ -1,10 +1,8 @@
 #!usr/bin/env python3
-from collections import defaultdict, deque
-from heapq import heappush, heappop
-from itertools import permutations, accumulate
-import sys
-import math
-import bisect
+from collections import defaultdict, deque, Counter, OrderedDict
+import collections, heapq, itertools, bisect
+import math, fractions
+import sys, copy
 
 def LI(): return [int(x) for x in sys.stdin.readline().split()]
 def LI1(): return [int(x) - 1 for x in sys.stdin.readline().split()]
@@ -23,8 +21,6 @@ dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 MOD = 1000000007
 
 def main():
-    s = input()
-    print(s)
-
+    N = I()
 
 main()

@@ -1,6 +1,5 @@
 #!usr/bin/env python3
 from collections import defaultdict, deque, Counter, OrderedDict
-from functools import reduce, lru_cache
 import collections, heapq, itertools, bisect
 import math, fractions
 import sys, copy
