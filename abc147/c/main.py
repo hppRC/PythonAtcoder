@@ -1,5 +1,6 @@
 #!usr/bin/env python3
 from collections import defaultdict, deque, Counter, OrderedDict
+from functools import reduce, lru_cache
 import collections, heapq, itertools, bisect
 import math, fractions
 import sys, copy
@@ -21,6 +22,30 @@ MOD = 1000000007
 
 def main():
     N = I()
+    A = []
+    for _ in range(N):
+        ni = I()
+        A.append(LIR(ni))
+
+    ans = 0
+    for bit in range(1 << N):
+        pattern = [bit >> i & 1 for i in range(N)]
+        for (i, Ai) in enumerate(A):
+            if not pattern[i]:
+                continue
+            # iが正直者の時
+            for (x, y) in Ai:
+                target = pattern[x-1]
+                if target != y:
+                    break
+            else:
+                continue
+            break
+        else:
+            ans = max(ans, pattern.count(1))
+
+    print(ans)
+
 
 if __name__ == '__main__':
     main()
