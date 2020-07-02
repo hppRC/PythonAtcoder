@@ -1,26 +1,4 @@
-#!usr/bin/env python3
-from collections import defaultdict, deque, Counter, OrderedDict
-from functools import reduce, lru_cache
-import collections, heapq, itertools, bisect
-import math, fractions
-import sys, copy
-import pprint
-
-def LI(): return [int(x) for x in sys.stdin.readline().split()]
-def LI1(): return [int(x) - 1 for x in sys.stdin.readline().split()]
-def I(): return int(sys.stdin.readline().rstrip())
-def LS(): return [list(x) for x in sys.stdin.readline().split()]
-def S(): return list(sys.stdin.readline().rstrip())
-def IR(n): return [I() for i in range(n)]
-def LIR(n): return [LI() for i in range(n)]
-def SR(n): return [S() for i in range(n)]
-def LSR(n): return [LS() for i in range(n)]
-
-sys.setrecursionlimit(1000000)
-dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
-dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
-MOD = 1000000007
-
+# nodeをリストに変換したらクソ遅かった
 
 class BalancingTree:
     def __init__(self, n):
@@ -161,49 +139,3 @@ class BalancingTree:
             self.pivot = p
             self.left = None
             self.right = None
-
-def main():
-    N, Q = LI()
-    AB = LIR(N)
-    CD = LIR(Q)
-
-    num = 200_001
-    BTs = [BalancingTree(48) for _ in range(num)]
-    for _ in range(num):
-        BTs.append(48)
-    BT_all = BalancingTree(48)
-    enji = [None] * (N + 1)
-    shift = 18
-    values = [0] * (N + 1)
-
-    for i, (a, b) in enumerate(AB):
-        v = (a << shift) + i + 1
-        values[i + 1] = v
-        BTs[b].append(v)
-        enji[i + 1] = b
-
-    for i in range(num):
-        BT_all.append(BTs[i].max())
-
-
-    for c, after in CD:
-        before = enji[c]
-        rate, _ = AB[c-1]
-        enji[c] = after
-
-        v = values[c]
-
-        BT_all.delete(BTs[before].max())
-        BT_all.delete(BTs[after].max())
-
-        BTs[before].delete(v)
-        BTs[after].append(v)
-
-        BT_all.append(BTs[before].max())
-        BT_all.append(BTs[after].max())
-
-        print(BT_all.min() >> shift)
-
-
-if __name__ == '__main__':
-    main()
