@@ -24,7 +24,19 @@ MOD = 1000000007
 
 def main():
     H, N = LI()
-    AB = [LI() for _ in range(N)]
+    AB = LIR(N)
+
+    dp = [float("inf")] * (H+1)
+    dp[0] = 0
+
+    for a, b in AB:
+        for i in range(H+1):
+            ni = min(H, a + i)
+            nv = dp[i] + b
+            if nv < dp[ni]:
+                dp[ni] = nv
+
+    print(dp[H])
 
 
 main()
