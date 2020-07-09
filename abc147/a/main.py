@@ -20,7 +20,8 @@ dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
 MOD = 1000000007
 
 def main():
-    N = I()
+    A = LI()
+    print("bust" if sum(A) >= 22 else "win")
 
 if __name__ == '__main__':
     main()
