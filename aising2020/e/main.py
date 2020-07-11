@@ -26,7 +26,7 @@ def main():
     for _ in range(T):
         N = I()
         KLR = LIR(N)
-
+        
 
 
 if __name__ == '__main__':
