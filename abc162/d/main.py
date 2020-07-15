@@ -25,7 +25,21 @@ def LSR(n):
 sys.setrecursionlimit(1000000)
 
 def main():
-    s = input()
-    print(s)
+    N = I()
+    s = S()
+
+    R = s.count("R")
+    G = s.count("G")
+    B = s.count("B")
+
+    dup = 0
+    for i in range(N):
+        for k in range(i+1, N):
+            if (i + k) % 2 == 0:
+                j = (i + k) // 2
+                if s[i] != s[j] and s[j] != s[k] and s[k] != s[i]:
+                    dup += 1
+
+    print(R * G * B - dup)
 
 main()
