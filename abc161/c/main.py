@@ -25,7 +25,9 @@ def LSR(n):
 sys.setrecursionlimit(1000000)
 
 def main():
-    s = input()
-    print(s)
+    N, K = LI()
+    x = N % K
+    y = abs(x - K)
+    print(min(x, y))
 
 main()
