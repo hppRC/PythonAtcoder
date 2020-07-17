@@ -12,7 +12,6 @@ def LS(): return [list(x) for x in sys.stdin.readline().split()]
 def S(): return list(sys.stdin.readline().rstrip())
 def IR(n): return [I() for i in range(n)]
 def LIR(n): return [LI() for i in range(n)]
-def LIR1(n): return [LI1() for i in range(n)]
 def SR(n): return [S() for i in range(n)]
 def LSR(n): return [LS() for i in range(n)]
 
@@ -23,7 +22,6 @@ MOD = 1000000007
 
 def main():
     N = I()
-
 
 if __name__ == '__main__':
     main()

@@ -23,6 +23,39 @@ MOD = 1000000007
 
 def main():
     N = I()
+    AB = LIR1(N-1)
+
+    g = [[] for _ in range(N)]
+    visited = [False] * N
+    ins = [-1] * N
+
+    for a, b in AB:
+        g[a].append(b)
+        g[b].append(a)
+
+    q = deque()
+    visited[0] = True
+    q.append(0)
+
+    while q:
+        u = q.popleft()
+        outs_num = 0
+        visited[u] = True
+
+        for v in g[u]:
+            if not visited[v]:
+                if outs_num == ins[u]:
+                    outs_num += 1
+
+                ins[v] = outs_num
+
+                outs_num += 1
+                q.append(v)
+
+    print(max(ins) + 1)
+    for a, b in AB:
+        print(ins[b] + 1)
+    
 
 
 if __name__ == '__main__':
