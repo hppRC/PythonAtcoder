@@ -55,7 +55,7 @@ def main():
     print(max(ins) + 1)
     for a, b in AB:
         print(ins[b] + 1)
-    
+
 
 
 if __name__ == '__main__':
