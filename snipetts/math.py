@@ -23,3 +23,13 @@ def factors(n):
             a += 1
     d[n] += 1
     return d
+
+def divisors(N):
+    divs = set([1, N])
+    i = 2
+    while i ** 2 <= N:
+        if N % i == 0:
+            divs.add(i)
+            divs.add(N//i)
+        i += 1
+    return sorted(list(divs))
