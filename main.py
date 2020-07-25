@@ -1,7 +1,10 @@
 #!usr/bin/env python3
 from collections import defaultdict, deque, Counter, OrderedDict
+from bisect import bisect_left, bisect_right
 from functools import reduce, lru_cache
-import collections, heapq, itertools, bisect
+from heapq import heappush, heappop, heapify
+
+import itertools, bisect
 import math, fractions
 import sys, copy
 
@@ -17,6 +20,8 @@ def LIR1(n): return [LI1() for _ in range(n)]
 def SR(n): return [S() for _ in range(n)]
 def LSR(n): return [LS() for _ in range(n)]
 def LR(n): return [L() for _ in range(n)]
+
+alphabets = "abcdefghijklmnopqrstuvwxyz"
 
 sys.setrecursionlimit(1000000)
 dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
