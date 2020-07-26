@@ -35,28 +35,48 @@ def main():
 
     anss = [INF] * (N+1)
 
+    preX, preY = [None for _ in range(1 << N)], [None for _ in range(1 << N)]
+    for pattern in itertools.product([0, 1], repeat=N):
+        X, Y = [0], [0]
+        keyX, keyY = 0, 0
+        tmpX, tmpY = [], []
+        for i, bit in enumerate(pattern):
+            keyX |= bit << i
+            keyY |= bit << i
+            if bit:
+                X.append(XYP[i][0])
+                Y.append(XYP[i][1])
+        for x, y, p in XYP:
+            min_distX = abs(y)
+            min_distY = abs(x)
+            for rx in X:
+                if min_distX > abs(x - rx):
+                    min_distX = abs(x - rx)
+            for ry in Y:
+                if min_distY > abs(y - ry):
+                    min_distY = abs(y - ry)
+            tmpX.append(min_distX * p)
+            tmpY.append(min_distY * p)
+        preX[keyX] = tmpX
+        preY[keyY] = tmpY
+
     for pattern in itertools.product([0, 1, 2], repeat=N):
-        X = [0]
-        Y = [0]
+        keyX, keyY = 0, 0
         root = 0
-        for i, (x, y, p) in enumerate(XYP):
-            if pattern[i] == 1:
-                X.append(x)
-            elif pattern[i] == 2:
-                Y.append(y)
-            if pattern[i] != 0:
+        for i, which in enumerate(pattern):
+            if which == 1:
+                keyX |= which << i
+                root += 1
+            elif which == 2:
+                keyY |= int(bool(which)) << i
                 root += 1
 
-        tmp_ans = 0
-        for x, y, p in XYP:
-            min_dist = INF
-            for rx in X:
-                min_dist = min(min_dist, abs(x - rx))
-            for ry in Y:
-                min_dist = min(min_dist, abs(y - ry))
-            tmp_ans += min_dist * p
+        tmp = 0
+        for vx, vy in zip(preX[keyX], preY[keyY]):
+            tmp += min(vx, vy)
 
-        anss[root] = min(anss[root], tmp_ans)
+        if anss[root] > tmp:
+            anss[root] = tmp
 
     for ans in anss:
         print(ans)
