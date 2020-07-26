@@ -27,40 +27,39 @@ sys.setrecursionlimit(1000000)
 dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
 MOD = 1000000007
+INF = float('inf')
 
 def main():
     N = I()
-
-    people_inX = [0] * (10000 * 2 + 1)
-    people_inY = [0] * (10000 * 2 + 1)
-
     XYP = LIR(N)
 
-    for xi, yi, pi in XYP:
-        people_inX[xi + 10000] += pi
-        people_inY[yi + 10000] += pi
+    anss = [INF] * (N+1)
 
-    numX = sorted(list(enumerate(people_inX)), key=lambda x: -x[1])
-    numY = sorted(list(enumerate(people_inY)), key=lambda x: -x[1])
+    for pattern in itertools.product([0, 1, 2], repeat=N):
+        X = [0]
+        Y = [0]
+        root = 0
+        for i, (x, y, p) in enumerate(XYP):
+            if pattern[i] == 1:
+                X.append(x)
+            elif pattern[i] == 2:
+                Y.append(y)
+            if pattern[i] != 0:
+                root += 1
 
-    X = [0]
-    Y = [0]
+        tmp_ans = 0
+        for x, y, p in XYP:
+            min_dist = INF
+            for rx in X:
+                min_dist = min(min_dist, abs(x - rx))
+            for ry in Y:
+                min_dist = min(min_dist, abs(y - ry))
+            tmp_ans += min_dist * p
 
-    for k in range(N+1):
-        idx = 0
-        idy = 0
-        for i in range(k):
-            if numX[idx] >= numY[idx]:
-                X.append(numX[idx][0] - 10000)
-                idx += 1
-            else:
-                Y.append(numX[idx][0] - 10000)
-                idx += 1
+        anss[root] = min(anss[root], tmp_ans)
 
-        for xi, yi, pi in XYP:
-            print(min(X, key=lambda a: abs(a - xi)), min(Y, key=lambda a: abs(a - yi)))
-
-        break
+    for ans in anss:
+        print(ans)
 
 if __name__ == '__main__':
     main()
