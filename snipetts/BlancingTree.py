@@ -1,5 +1,7 @@
 # nodeをリストに変換したらクソ遅かった
 
+import pprint
+
 class BalancingTree:
     def __init__(self, n):
         self.N = n
