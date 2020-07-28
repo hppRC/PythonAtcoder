@@ -22,6 +22,7 @@ def LSR(n): return [LS() for _ in range(n)]
 def LR(n): return [L() for _ in range(n)]
 
 alphabets = "abcdefghijklmnopqrstuvwxyz"
+ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 sys.setrecursionlimit(1000000)
 dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
