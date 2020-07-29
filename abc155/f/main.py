@@ -4,7 +4,7 @@ from bisect import bisect_left, bisect_right
 from functools import reduce, lru_cache
 from heapq import heappush, heappop, heapify
 
-import itertools
+import itertools, bisect
 import math, fractions
 import sys, copy
 
