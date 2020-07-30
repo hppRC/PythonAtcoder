@@ -1,3 +1,34 @@
+#!usr/bin/env python3
+from collections import defaultdict, deque, Counter, OrderedDict
+from bisect import bisect_left, bisect_right
+from functools import reduce, lru_cache
+from heapq import heappush, heappop, heapify
+
+import itertools, bisect
+import math, fractions
+import sys, copy
+
+def L(): return sys.stdin.readline().split()
+def I(): return int(sys.stdin.readline().rstrip())
+def S(): return list(sys.stdin.readline().rstrip())
+def LI(): return [int(x) for x in sys.stdin.readline().split()]
+def LI1(): return [int(x) - 1 for x in sys.stdin.readline().split()]
+def LS(): return [list(x) for x in sys.stdin.readline().split()]
+def IR(n): return [I() for _ in range(n)]
+def LIR(n): return [LI() for _ in range(n)]
+def LIR1(n): return [LI1() for _ in range(n)]
+def SR(n): return [S() for _ in range(n)]
+def LSR(n): return [LS() for _ in range(n)]
+def LR(n): return [L() for _ in range(n)]
+
+alphabets = "abcdefghijklmnopqrstuvwxyz"
+ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+sys.setrecursionlimit(1000000)
+dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
+MOD = 1000000007
+
 # nodeをリストに変換したらクソ遅かった
 
 import pprint
@@ -151,3 +182,48 @@ class BalancingTree:
             self.pivot = p
             self.left = None
             self.right = None
+
+
+def main():
+    N = I()
+    P = LI()
+
+    tree = BalancingTree()
+    stoi = [None] * (N + 1)
+
+    for i, pi in enumerate(P):
+        stoi[pi] = i
+
+    tree.append(stoi[N])
+    ans = 0
+
+    for pi in range(1, N)[::-1]:
+        i = stoi[pi]
+        tree.append(i)
+        l = tree.find_l(i)
+        r = tree.find_r(i)
+        k = (i + 1 if l == -1 else i - l)
+        m = (N - i if r == tree.root.value - 1 else r - i)
+
+        ll = tree.find_l(l)
+        rr = tree.find_r(r)
+
+        if l == -1:
+            j = 0
+        else:
+            j = l + 1 if ll == -1 else l - ll
+        if r == tree.root.value - 1:
+            n = 0
+        else:
+            if rr == tree.root.value - 1:
+                n = N - r
+            else:
+                n = rr - r
+
+        ans += pi * (j * m + k * n)
+
+    print(ans)
+
+
+if __name__ == '__main__':
+    main()
