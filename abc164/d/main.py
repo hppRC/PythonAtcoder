@@ -4,7 +4,7 @@ from bisect import bisect_left, bisect_right
 from functools import reduce, lru_cache
 from heapq import heappush, heappop, heapify
 
-import itertools
+import itertools, bisect
 import math, fractions
 import sys, copy
 
@@ -28,7 +28,6 @@ sys.setrecursionlimit(1000000)
 dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
 MOD = 1000000007
-INF = float("inf")
 
 def main():
     N = I()

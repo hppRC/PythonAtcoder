@@ -4,7 +4,7 @@ from bisect import bisect_left, bisect_right
 from functools import reduce, lru_cache
 from heapq import heappush, heappop, heapify
 
-import itertools
+import itertools, bisect
 import math, fractions
 import sys, copy
 
@@ -31,7 +31,34 @@ MOD = 1000000007
 INF = float("inf")
 
 def main():
-    N = I()
+    N, M, S = LI()
+    UVAB = LIR(M)
+    CD = LIR(N)
+
+    edge = [[] for _ in range(N)]
+    for u, v, a, b in UVAB:
+        edge[u - 1].append((v - 1, a, b))
+        edge[v - 1].append((u - 1, a, b))
+
+    dist = [[INF] * 2500 for _ in range(N)]
+    heap = [(0, 0, min(2500, S))]
+
+    while heap:
+        cost, u, s = heappop(heap)
+        c, d = CD[u]
+
+        if s + c < 2500 and dist[u][s + c] > cost + d:
+            dist[u][s + c] = cost + d
+            heappush(heap, (cost + d, u, s + c))
+        for v, a, b in edge[u]:
+            if s - a >= 0 and dist[v][s - a] > cost + b:
+                dist[v][s - a] = cost + b
+                heappush(heap, (cost + b, v, s - a))
+
+        # print(heap)
+
+    for i in range(1, N):
+        print(min(dist[i]))
 
 if __name__ == '__main__':
     main()
