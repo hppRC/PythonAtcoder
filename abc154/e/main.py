@@ -21,6 +21,9 @@ def SR(n): return [S() for _ in range(n)]
 def LSR(n): return [LS() for _ in range(n)]
 def LR(n): return [L() for _ in range(n)]
 
+def perm(n, r): return math.factorial(n) // math.factorial(r)
+def comb(n, r): return math.factorial(n) // (math.factorial(r) * math.factorial(n-r))
+
 alphabets = "abcdefghijklmnopqrstuvwxyz"
 ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -30,7 +33,12 @@ dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
 MOD = 1000000007
 
 def main():
-    N = I()
+    N = input()
+    K = I()
+
+
+
+
 
 if __name__ == '__main__':
     main()

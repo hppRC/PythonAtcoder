@@ -4,7 +4,7 @@ from bisect import bisect_left, bisect_right
 from functools import reduce, lru_cache
 from heapq import heappush, heappop, heapify
 
-import itertools
+import itertools, bisect
 import math, fractions
 import sys, copy
 
@@ -20,6 +20,9 @@ def LIR1(n): return [LI1() for _ in range(n)]
 def SR(n): return [S() for _ in range(n)]
 def LSR(n): return [LS() for _ in range(n)]
 def LR(n): return [L() for _ in range(n)]
+
+def perm(n, r): return math.factorial(n) // math.factorial(r)
+def comb(n, r): return math.factorial(n) // (math.factorial(r) * math.factorial(n-r))
 
 alphabets = "abcdefghijklmnopqrstuvwxyz"
 ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

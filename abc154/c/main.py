@@ -31,6 +31,9 @@ MOD = 1000000007
 
 def main():
     N = I()
+    A = LI()
+    s = set(A)
+    print("YES" if len(s) == len(A) else "NO")
 
 if __name__ == '__main__':
     main()
