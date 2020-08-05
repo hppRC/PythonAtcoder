@@ -22,7 +22,14 @@ dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
 MOD = 1000000007
 
 def main():
-    N = I()
+    A, B = LI()
+
+    for i in range(1, 2000):
+        if math.floor(i * 0.08) == A and math.floor(i * 0.1) == B:
+            print(i)
+            break
+    else:
+        print(-1)
 
 
 if __name__ == '__main__':
