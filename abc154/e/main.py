@@ -36,9 +36,26 @@ def main():
     N = input()
     K = I()
 
+    dp1 = [[0] * len(N) for _ in range(K + 2)] #未確定
+    dp2 = [[0] * len(N) for _ in range(K + 2)] #確定
 
+    dp1[1][0] = 1
+    dp2[0][0] = 1
+    dp2[1][0] = int(N[0]) - 1
 
+    for i in range(1, len(N)):
+        num = int(N[i])
+        for k in range(K+1):
+            if num == 0:
+                dp1[k][i] += dp1[k][i - 1]
+                dp2[k][i] += dp2[k][i - 1]
+                dp2[k+1][i] = dp2[k][i - 1] * 9
+            else:
+                dp1[k + 1][i] += dp1[k][i - 1]
+                dp2[k][i] += dp2[k][i - 1] + dp1[k][i - 1]
+                dp2[k + 1][i] = dp2[k][i - 1] * 9 + dp1[k][i - 1] * (num - 1)
 
+    print(dp1[K][-1] + dp2[K][-1])
 
 if __name__ == '__main__':
     main()
