@@ -7,6 +7,7 @@ from heapq import heappush, heappop, heapify
 import itertools, bisect
 import math, fractions
 import sys, copy
+import time
 
 def L(): return sys.stdin.readline().split()
 def I(): return int(sys.stdin.readline().rstrip())
@@ -33,53 +34,15 @@ dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
 MOD = 1000000007
 INF = float("inf")
 
-class Eratosthenes:
-    # https://cp-algorithms.com/algebra/prime-sieve-linear.html
-    def __init__(self, n):
-        primes = []
-        lp = [0] * (n + 1)
-
-        for i in range(2, n + 1):
-            if lp[i] == 0:
-                primes.append(i)
-                lp[i] = i
-
-            for pj in primes:
-                if pj > lp[i] or i * pj > n:
-                    break
-                lp[i * pj] = pj
-        self.primes = primes
-        self.lp = lp
-
-    def is_prime(self, x):
-        return self.lp[x] == x
-
-    def factrization(self, x):
-        ret = []
-        while x > 1:
-            ret.append(self.lp[x])
-            x //= self.lp[x]
-        return ret
-
 def main():
-    N, K = LI()
+    N, K = 3, 15
 
-    era = Eratosthenes(K)
-    count = [0] * (K + 1)
+    d = [0] * (K+1)
 
-    for i in range(1, K + 1):
-        count[i] = pow((K // i), N, MOD)
+    for l in itertools.product(range(1, K + 1), repeat=N):
+        d[reduce(math.gcd, l)] += 1
+    print(d)
 
-    for i in range(1, K + 1)[::-1]:
-        divs = era.factrization(i)
-        candedates = [l for l in set(reduce(lambda x, y:x * y, ll, 1) for r in range(1, len(divs) + 1) for ll in itertools.combinations(divs, r))]
-        for v in candedates:
-            count[i // v] -= count[i]
-
-    ans = 0
-    for i in range(1, K + 1):
-        ans = (ans + i * count[i]) % MOD
-    print(ans % MOD)
 
 if __name__ == '__main__':
     main()
