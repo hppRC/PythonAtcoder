@@ -10,7 +10,7 @@ import sys, copy
 
 def L(): return sys.stdin.readline().split()
 def I(): return int(sys.stdin.readline().rstrip())
-def S(): return list(sys.stdin.readline().rstrip())
+def SL(): return list(sys.stdin.readline().rstrip())
 def LI(): return [int(x) for x in sys.stdin.readline().split()]
 def LI1(): return [int(x) - 1 for x in sys.stdin.readline().split()]
 def LS(): return [list(x) for x in sys.stdin.readline().split()]
