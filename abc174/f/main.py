@@ -29,78 +29,49 @@ dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
 MOD = 1000000007
 
-class WaveletMatrix:
-    def __init__(self, data):
-        self.th_list = [None] # no threshold at first row
-        self.data = self.get_data(data)
+# reffer to: https://qiita.com/dn6049949/items/afa12d5d079f518de368
+class SegmentTree:
+    # 初期化処理
+    # f : SegmentTreeにのせるモノイド
+    # default : fに対する単位元
+    def __init__(self, size, f=lambda x,y : x+y, default=0):
+        self.size = 2**(size-1).bit_length() # 簡単のため要素数Nを2冪にする
+        self.default = default
+        self.data = [default for _ in range(self.size * 2)]  # 要素を単位元で初期化
+        self.f = f
 
-    def get_data(self, data):
-        self.bin_size = len(bin(max(data))) - 2 # ignore '0b' prefix, e.g., 0b111
-        self.fmt = '{0:0' + str(self.bin_size) + 'b}'
+    def update(self, i, x):
+        i += self.size
+        self.data[i] = x
+        while i > 0:
+            i >>= 1
+            self.data[i] = self.f(self.data[i*2], self.data[i*2+1])
 
-        bin_data = [self.fmt.format(d) for d in data]
-        bin_data_list = []
-        wav_mat = []
+    def query(self, l, r):
+        l += self.size
+        r += self.size
+        lres, rres = self.default, self.default
+        while l < r:
+            if l & 1:
+                lres = self.f(lres, self.data[l])
+                l += 1
 
-        for i in range(self.bin_size):
-            bin_data_list.append([int(b[i]) for b in bin_data])
+            if r & 1:
+                r -= 1
+                rres = self.f(self.data[r], rres) # モノイドでは可換律は保証されていないので演算の方向に注意
+            l >>= 1
+            r >>= 1
+        res = self.f(lres, rres)
+        return res
 
-        wav_mat.append(bin_data_list[0])
-        indices = range(len(data))
-        for i in range(0, self.bin_size - 1):
-            pfx_ind, sfx_ind = [], []
-            pfx, sfx = [], []
-            for c, b in enumerate(wav_mat[i]):
-                if b == 0:
-                    pfx_ind.append(c)
-                    pfx.append(bin_data_list[i+1][indices[c]])
-                else:
-                    sfx_ind.append(c)
-                    sfx.append(bin_data_list[i+1][indices[c]])
-
-            self.th_list.append(len(pfx))
-            indices = pfx_ind + sfx_ind
-            wav_mat.append(pfx + sfx)
-
-        return wav_mat
-
-    def access(self, index):
-        d = self.data
-        assert index >= 0 and index < len(d[0])
-
-        idx = index
-        mem = []
-        for i in range(self.bin_size):
-            b = d[i][idx]
-            mem.append(b)
-            if i < self.bin_size - 1: # update idx
-                idx = d[i][:idx].count(b)
-                if b == 1:
-                    idx += self.th_list[i + 1]
-        ans = int(''.join([str(b) for b in mem]), 2)
-        return ans
-
-    def rank(self, n, index):
-        d = self.data
-        assert index >= 0 and index < len(d[0])
-
-        n_b = self.fmt.format(n) # ex) '100'
-        beg, end = 0, index
-        ct = None
-        for i in range(self.bin_size):
-            v = int(n_b[i])
-            ct = d[i][beg:end].count(v)
-            if i < self.bin_size - 1: # update idx
-                if v == 0:
-                    beg = 0
-                else:
-                    beg = self.th_list[i + 1]
-                end = beg + ct
-
-        return ct
 
 def main():
-    N = I()
+    N, Q = LI()
+    C = LI()
+    lr = sorted(enumerate(LIR1(Q)), key=lambda x: x[1][1])
+    print(lr)
+
+
 
 if __name__ == '__main__':
     main()
