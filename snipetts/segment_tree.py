@@ -16,6 +16,7 @@ class SegmentTree:
             i >>= 1
             self.data[i] = self.f(self.data[i*2], self.data[i*2+1])
 
+    # [l, r)
     def query(self, l, r):
         l += self.size
         r += self.size
