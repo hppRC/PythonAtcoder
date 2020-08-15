@@ -35,6 +35,17 @@ INF = float("inf")
 
 def main():
     N = I()
+    AB = sorted(LIR(N), key=lambda x: x[1])
+
+    tmp = 0
+    for a, b in AB:
+        tmp += a
+        if tmp > b:
+            print("No")
+            break
+    else:
+        print("Yes")
+
 
 if __name__ == '__main__':
     main()

@@ -17,7 +17,7 @@ def LS(): return [list(x) for x in sys.stdin.readline().split()]
 def IR(n): return [I() for _ in range(n)]
 def LIR(n): return [LI() for _ in range(n)]
 def LIR1(n): return [LI1() for _ in range(n)]
-def SR(n): return [S() for _ in range(n)]
+def SR(n): return [SL() for _ in range(n)]
 def LSR(n): return [LS() for _ in range(n)]
 def LR(n): return [L() for _ in range(n)]
 
