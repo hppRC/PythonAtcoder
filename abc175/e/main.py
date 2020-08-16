@@ -39,20 +39,22 @@ def main():
     R, C, K = LI()
     rcv = LIR1(K)
 
-    dp = make_list(R+1, C+1, 4)
+    # dp = make_list(R+1, C+1, 4)
+    dp = make_list(C+1, 4)
     table = make_list(R, C)
 
     for r, c, v in rcv: table[r][c] = v + 1
 
     for r in range(R):
+        newdp = [[max(p), 0, 0, 0] for p in dp]
         for c in range(C):
-            dp[r][c][0] = max(dp[r - 1][c])
             for i in range(1, 4)[::-1]:
-                dp[r][c][i] = max(dp[r][c][i], dp[r][c][i - 1] + table[r][c])
-            for i in range(4):
-                dp[r][c+1][i] = max(dp[r][c+1][i], dp[r][c][i])
+                newdp[c][i] = max(newdp[c][i], newdp[c][i - 1] + table[r][c])
+                newdp[c + 1][i] = max(newdp[c + 1][i], newdp[c][i])
+            newdp[c + 1][0] = max(newdp[c + 1][0], newdp[c][0])
+        dp = newdp
 
-    print(max(dp[R-1][C-1]))
+    print(max(dp[C-1]))
 
 
 if __name__ == '__main__':
