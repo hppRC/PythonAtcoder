@@ -4,7 +4,7 @@ from bisect import bisect_left, bisect_right
 from functools import reduce, lru_cache
 from heapq import heappush, heappop, heapify
 
-import itertools, bisect
+import itertools
 import math, fractions
 import sys, copy
 
@@ -22,7 +22,9 @@ def LSR(n): return [LS() for _ in range(n)]
 def LR(n): return [L() for _ in range(n)]
 
 def perm(n, r): return math.factorial(n) // math.factorial(r)
-def comb(n, r): return math.factorial(n) // (math.factorial(r) * math.factorial(n-r))
+def comb(n, r): return math.factorial(n) // math.factorial(r) // math.factorial(n-r)
+
+def make_list(n, *args, default=0): return [make_list(*args, default=default) for _ in range(n)] if len(args) > 0 else [default for _ in range(n)]
 
 alphabets = "abcdefghijklmnopqrstuvwxyz"
 ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -37,31 +39,20 @@ def main():
     R, C, K = LI()
     rcv = LIR1(K)
 
-    dp = [[[0 for _ in range(C)] for _ in range(R)] for _ in range(4)]
-    table = [[0 for _ in range(C)] for _ in range(R)]
+    dp = make_list(R+1, C+1, 4)
+    table = make_list(R, C)
 
-    for r, c, v in rcv:
-        table[r][c] = v + 1
+    for r, c, v in rcv: table[r][c] = v + 1
 
-    for i in range(1, 4):
-        for r in range(R):
-            for c in range(C):
-                if r > 0 and c > 0:
-                    dp[i][r][c] = max([dp[i][r][c-1], dp[i][r-1][c], dp[i-1][r][c-1] + table[r][c-1], dp[i-1][r-1][c] + table[r-1][c]])
-                elif r == 0 and c == 0:
-                    pass
-                elif r == 0:
-                    dp[i][r][c] = max([dp[i][r][c-1], dp[i-1][r][c-1] + table[r][c-1]])
-                elif c == 0:
-                    dp[i][r][c] = max([dp[i][r-1][c], dp[i-1][r-1][c] + table[r-1][c]])
+    for r in range(R):
+        for c in range(C):
+            dp[r][c][0] = max(dp[r - 1][c])
+            for i in range(1, 4)[::-1]:
+                dp[r][c][i] = max(dp[r][c][i], dp[r][c][i - 1] + table[r][c])
+            for i in range(4):
+                dp[r][c+1][i] = max(dp[r][c+1][i], dp[r][c][i])
 
-
-    for p in dp:
-        for q in p:
-            print(q)
-        print("-"*100)
-    print(dp[1][R-1][C-1], dp[2][R-1][C-1], dp[3][R-1][C-1])
-
+    print(max(dp[R-1][C-1]))
 
 
 if __name__ == '__main__':
