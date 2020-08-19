@@ -27,6 +27,7 @@ class ExBIT:
         self.p = Bit(n + 1)
         self.q = Bit(n + 1)
 
+    # add x to [l, r] (not [l, r)])
     def add(self, x, l, r=None):
         if r is None: r = l
         r += 1
