@@ -24,7 +24,7 @@ def LR(n): return [L() for _ in range(n)]
 def perm(n, r): return math.factorial(n) // math.factorial(r)
 def comb(n, r): return math.factorial(n) // (math.factorial(r) * math.factorial(n-r))
 
-def make_list(n, *args, default=0): return [make_table(*args, default=default) for _ in range(n)] if len(args) > 0 else [default for _ in range(n)]
+def make_list(n, *args, default=0): return [make_list(*args, default=default) for _ in range(n)] if len(args) > 0 else [default for _ in range(n)]
 
 alphabets = "abcdefghijklmnopqrstuvwxyz"
 ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
