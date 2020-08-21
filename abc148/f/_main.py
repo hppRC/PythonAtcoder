@@ -55,14 +55,20 @@ def main():
     AB = LIR1(N-1)
     max_dist = [None] * N
     g = adjacency_list(N, AB)
-    udist = graph_distance(u-1, g)
-    vdist = graph_distance(v-1, g)
+    parent, children, depth = tree_utils(v-1, g)
+    d = graph_distance(v-1, g)
+    print(d)
 
-    ans = vdist[u-1] - 1
-    for ud, vd in zip(udist, vdist):
-        if ud < vd:
-            ans = max(ans, vd - 1)
-    print(ans)
+    def dfs(i):
+        dist = max([0] + [dfs(j) for j in children[i]])
+        max_dist[i] = dist
+        return dist + 1
+    mid = u-1
+    for _ in range((depth[u-1] - 1)//2):
+        mid = parent[mid]
+    dfs(mid)
+    print(depth[mid] + max_dist[mid] - 1)
+
 
 if __name__ == '__main__':
     main()
