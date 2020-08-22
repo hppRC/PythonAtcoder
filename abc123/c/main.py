@@ -33,6 +33,8 @@ MOD, INF = 1000000007, float("inf")
 
 def main():
     N = I()
+    ABCDE = IR(5)
+    print(5 + N // min(ABCDE) - int(min(ABCDE) == 1))
 
 if __name__ == '__main__':
     main()
