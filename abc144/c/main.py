@@ -24,19 +24,35 @@ def LR(n): return [L() for _ in range(n)]
 def perm(n, r): return math.factorial(n) // math.factorial(r)
 def comb(n, r): return math.factorial(n) // (math.factorial(r) * math.factorial(n-r))
 
-def make_list(n, *args, default=0): return [make_table(*args, default=default) for _ in range(n)] if len(args) > 0 else [default for _ in range(n)]
-
-alphabets = "abcdefghijklmnopqrstuvwxyz"
-ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+def make_list(n, *args, default=0): return [make_list(*args, default=default) for _ in range(n)] if len(args) > 0 else [default for _ in range(n)]
 
 sys.setrecursionlimit(1000000)
-dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
-dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
-MOD = 1000000007
-INF = float("inf")
+dire, dire8 = [[1, 0], [0, 1], [-1, 0], [0, -1]], [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
+alphabets, ALPHABETS = "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+MOD, INF = 1000000007, float("inf")
+
+def factors(n):
+    d = []
+    a = 2
+    while n >= a ** 2:
+        if n % a == 0:
+            n //= a
+            d.append(a)
+        else:
+            a += 1
+    d.append(n)
+    return d
 
 def main():
     N = I()
+
+    i = math.ceil(math.sqrt(N))
+    while N % i != 0:
+        i -= 1
+
+    print(i + N//i - 2)
+
+
 
 if __name__ == '__main__':
     main()
