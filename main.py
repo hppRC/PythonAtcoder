@@ -27,10 +27,14 @@ def comb(n, r): return math.factorial(n) // (math.factorial(r) * math.factorial(
 
 def make_list(n, *args, default=0): return [make_list(*args, default=default) for _ in range(n)] if len(args) > 0 else [default for _ in range(n)]
 
+dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
+alphabets = "abcdefghijklmnopqrstuvwxyz"
+ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+MOD = 1000000007
+INF = float("inf")
+
 sys.setrecursionlimit(1000000)
-dire, dire8 = [[1, 0], [0, 1], [-1, 0], [0, -1]], [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
-alphabets, ALPHABETS = "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-MOD, INF = 1000000007, float("inf")
 
 def main():
     N = I()

@@ -36,7 +36,16 @@ MOD = 1000000007
 INF = float("inf")
 
 def main():
-    N = I()
+    a, b, x = LI()
+
+    if x <= a * a * b / 2:
+        c = 2 * x / (a * b)
+        rad = math.atan(b / c)
+    else:
+        x = a * a * b - x
+        c = 2 * x / (a * a)
+        rad = math.atan(c / a)
+    print(math.degrees(rad))
 
 if __name__ == '__main__':
     main()
