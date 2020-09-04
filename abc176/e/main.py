@@ -37,7 +37,30 @@ INF = float("inf")
 sys.setrecursionlimit(1000000)
 
 def main():
-    N = I()
+    H, W, M = LI()
+    hw = LIR(M)
+
+    s = set(h + w * (10 ** 6) for h, w in hw)
+
+    ch = Counter(i for i, _ in hw)
+    cw = Counter(j for _, j in hw)
+    _, maxcy = ch.most_common(1)[0]
+    _, maxcx = cw.most_common(1)[0]
+
+    ans = maxcy + maxcx - 1
+
+    lh = [k for k, v in ch.items() if v == maxcy]
+    lw = [k for k, v in cw.items() if v == maxcx]
+
+    for h in lh:
+        for w in lw:
+            if not h + w * (10 ** 6) in s:
+                print(ans + 1)
+                return
+    print(ans)
+
+
+
 
 if __name__ == '__main__':
     main()
