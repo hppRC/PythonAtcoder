@@ -42,10 +42,10 @@ def main():
     ans = 0
 
     for i in range(N):
-        k = i
         for j in range(i+1, N):
-            while k < N and L[k] < L[i] + L[j]: k += 1
-            ans += k - (j + 1)
+            a, b = L[i], L[j]
+            # print(L[j+1:], abs(a - b), a+b, bisect_left(L[j+1:], abs(a - b)), bisect_left(L[j+1:], a + b))
+            ans += bisect_left(L[j+1:], a + b) - bisect_left(L[j+1:], abs(a - b))
 
     print(ans)
 

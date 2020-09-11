@@ -38,6 +38,17 @@ sys.setrecursionlimit(1000000)
 
 def main():
     N = I()
+    A = LI()
+
+    s = 0
+    high = 0
+    for ai in A:
+        if ai < high:
+            s += high - ai
+        else:
+            high = ai
+
+    print(s)
 
 if __name__ == '__main__':
     main()
