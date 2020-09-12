@@ -1,8 +1,5 @@
 class Bit:
-    def __init__(self, n, default=0):
-        self.size = n
-        self.tree = [default] * (n + 1)
-
+    def __init__(self, n, default=0): self.size, self.tree = n, [default] * (n + 1)
     # get sum of [0, i]
     def sum(self, i):
         s = 0
