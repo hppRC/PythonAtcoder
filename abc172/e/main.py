@@ -60,17 +60,30 @@ class FactInv:
         return self.fact[a] * self.inv[b] * self.inv[a-b] % self.MOD
 
 
+class ModInt:
+    def __init__(self, x, MOD=1000000007): self.x, self.MOD = x % MOD, MOD
+    def __str__(self): return str(self.x)
+    def __add__(self, other): return ModInt(self.x + other.x) if isinstance(other, ModInt) else ModInt(self.x + other)
+    def __sub__(self, other): return ModInt(self.x - other.x) if isinstance(other, ModInt) else ModInt(self.x - other)
+    def __mul__(self, other): return ModInt(self.x * other.x) if isinstance(other, ModInt) else ModInt(self.x * other)
+    def __truediv__(self, other): return ModInt(self.x * other.inverse()) if isinstance(other, ModInt) else ModInt(self.x * pow(other, self.MOD - 2, self.MOD))
+    def __pow__(self, other): return ModInt(pow(self.x, other.x, self.MOD)) if isinstance(other, ModInt) else ModInt(pow(self.x, other, self.MOD))
+    def __rsub__(self, other): return ModInt(other.x - self.x) if isinstance(other, ModInt) else ModInt(other - self.x)
+    def __rtruediv__(self, other): return ModInt(other.x * other.inverse()) if isinstance(other, ModInt) else ModInt(other * pow(self.x, self.MOD - 2, self.MOD))
+    def __rpow__(self, other): return ModInt(pow(other.x, self.x, self.MOD)) if isinstance(other, ModInt) else ModInt(pow(other, self.x, self.MOD))
+    __repr__, __radd__, __rmul__ = __str__, __add__, __mul__
+    def inverse(self): return pow(self.x, self.MOD - 2, self.MOD)
+
 def main():
     N, M = LI()
     factinv = FactInv(M)
+    a = ModInt(factinv.perm(M, N))
+    tmp = ModInt(0)
 
-    a = factinv.perm(M, N)
+    for k in range(N + 1):
+        tmp += factinv.comb(N, k) * factinv.perm(M - k, N - k) * pow(-1, k)
 
-    tmp = a
-    for k in range(1, N + 1):
-        tmp = (tmp + factinv.comb(N, k) * factinv.perm(M - k, N - k) * pow(-1, k)) % MOD
-
-    print(a * tmp % MOD)
+    print(a * tmp)
 
 
 
