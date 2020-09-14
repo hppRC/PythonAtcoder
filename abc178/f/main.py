@@ -53,9 +53,8 @@ def main():
             nums.append(bi)
 
     C = [None] * N
-    D = [None] * N
     now = 0
-    # print(d, nums)
+    print(d, nums)
 
     for i in range(N):
         if nums[now] == A[i]:
@@ -66,44 +65,15 @@ def main():
         C[i] = nums[now]
         d[nums[now]] -= 1
 
-    d = defaultdict(int)
-    s = set()
-    nums = []
-    for bi in B:
-        d[bi] += 1
-        if not bi in s:
-            s.add(bi)
-            nums.append(bi)
-
-    now = 0
-    for i in range(N):
-        if nums[now] == A[i]:
-            now = (now - 1) % len(nums)
-        while d[nums[now]] <= 0:
-            now = (now - 1) % len(nums)
-
-        D[i] = nums[now]
-        d[nums[now]] -= 1
-
-    # print(d, nums, C)
+    print(d, nums)
 
     for ai, ci in zip(A, C):
-        if ai == ci:
-            break
-    else:
-        print("Yes")
-        print(*C)
-        return
-
-    for ai, ci in zip(A, D):
         if ai == ci:
             print("No")
             break
     else:
         print("Yes")
-        print(*D)
-
-
+        print(*C)
 
 
 # def main():
