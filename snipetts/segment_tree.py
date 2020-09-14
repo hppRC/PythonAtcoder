@@ -9,6 +9,12 @@ class SegmentTree:
         self.data = [default]*(self.size*2) # 要素を単位元で初期化
         self.f = f
 
+    # example:
+    # tree = SegmentTree(N, f=max, default=-1).initialize(A)
+    def initialize(self, A):
+        for i, ai in enumerate(A): self.update(i, ai)
+        return self
+
     def update(self, i, x):
         i += self.size
         self.data[i] = x
@@ -25,7 +31,6 @@ class SegmentTree:
             if l & 1:
                 lres = self.f(lres, self.data[l])
                 l += 1
-
             if r & 1:
                 r -= 1
                 rres = self.f(self.data[r], rres) # モノイドでは可換律は保証されていないので演算の方向に注意
@@ -33,3 +38,23 @@ class SegmentTree:
             r >>= 1
         res = self.f(lres, rres)
         return res
+
+    # You can use lower_bound only if f == max.
+    # return min({i | x <= i and v <= a[i]}, self.num_leaf)
+    def lower_bound(self, x, v):
+        x += self.size
+        while self.data[x] < v:
+            if x & 1: # x % 2 == 1
+                if len(bin(x)) == len(bin(x+1)):
+                    x += 1
+                else:
+                    return self.size
+            else:
+                x >>= 1
+        while x < self.size:
+            if self.data[2*x] >= v:
+                x = 2*x
+            else:
+                x = 2*x + 1
+        return x - self.size
+
