@@ -36,13 +36,14 @@ INF = float("inf")
 
 sys.setrecursionlimit(1000000)
 
+
 # モノイドに対して適用可能、Nが2冪でなくても良い
 class LazySegTree():
-    def __init__(self, initial_values, monoid_func, composition, effect, monoid_identity, operator_identity):
+    def __init__(self, initial_values, monoid_func, composition, operate, monoid_identity, operator_identity):
         self.N = len(initial_values)
         self.monoid_func = monoid_func
         self.composition = composition # composition(f, g) => g(f(x))の順であることに注意
-        self.effect = effect #右作用 effect(a, f) => f(a), 雑に可換な処理を書こうとするとバグるので注意
+        self.operate = operate #右作用 operate(a, f) => f(a), 雑に可換な処理を書こうとするとバグるので注意
         self.monoid_identity = monoid_identity
         self.operator_identity = operator_identity
         self.data = [self.monoid_identity]*(2*self.N)
@@ -64,7 +65,7 @@ class LazySegTree():
             self.data[i] = self.monoid_func(self.data[i << 1], self.data[i << 1 | 1])
 
     def eval_at(self,i):  # i番目で作用を施した値を返す
-        return self.effect(self.data[i],self.lazy[i],self.size[i])
+        return self.operate(self.data[i],self.lazy[i],self.size[i])
 
     def eval_above(self,i):  # i番目より上の値を再計算する
         while i > 1:
@@ -72,7 +73,7 @@ class LazySegTree():
             self.data[i] = self.monoid_func(self.eval_at(i << 1),self.eval_at(i << 1 | 1))
 
     def propagate_at(self,i):  # i番目で作用を施し、1つ下に作用の情報を伝える
-        self.data[i] = self.effect(self.data[i],self.lazy[i],self.size[i])
+        self.data[i] = self.operate(self.data[i],self.lazy[i],self.size[i])
         self.lazy[i << 1] = self.composition(self.lazy[i << 1],self.lazy[i])
         self.lazy[i << 1 | 1] = self.composition(self.lazy[i << 1 | 1], self.lazy[i])
         self.lazy[i] = self.operator_identity
@@ -102,7 +103,8 @@ class LazySegTree():
             R >>= 1
         return self.monoid_func(vL,vR)
 
-    def apply_range(self,L,R,x):
+    #重たい
+    def apply_range(self,L,R,x):  # [L,R)にxを作用
         L += self.N
         R += self.N
         L0 = L // (L & -L)
@@ -121,34 +123,42 @@ class LazySegTree():
         self.eval_above(L0)
         self.eval_above(R0)
 
+# shift = 1 << 32
+# mask = (1 << 32) - 1
 
-def monoid_func(x,y):
-    return (x+y) % MOD
+def monoid_func(s, t):
+    sv, sn = s >> 32, s % (1 << 32)
+    tv, tn = t >> 32, t % (1 << 32)
+    return (((sv + tv) % MOD) << 32) + sn + tn
 
-def composition(a,b):
-    b0,c0 = a
-    b1,c1 = b
-    return ((b0*b1) % MOD,(b1*c0+c1) % MOD)
+# g(f(x))の順であることに注意
+def composition(f, g):
+    fb, fc = f >> 32, f % (1 << 32)
+    gb, gc = g >> 32, g % (1 << 32)
+    return ((fb * gb % MOD) << 32) + ((gb * fc + gc) % MOD)
 
-def effect(x,a,r):
-    b,c = a
-    return (b*x+c*r) % MOD
+#右作用
+#雑に可換な処理を書こうとするとバグるので注意
+def operate(a,f,_):
+    fb, fc = f >> 32, f % (1 << 32)
+    av, an = a >> 32, a % (1 << 32)
+    return (((fb * av + fc * an) % MOD) << 32) + an
 
 def main():
     monoid_identity = 0
-    operator_identity = (1,0)
+    operator_identity = 1 << 32
 
     N, Q = LI()
-    A = LI()
-    LST = LazySegTree(A, monoid_func, composition, effect, monoid_identity, operator_identity)
+    A = [(ai << 32) + 1 for ai in LI()]
+    LST = LazySegTree(A, monoid_func, composition, operate, monoid_identity, operator_identity)
 
     for q in LIR(Q):
         if q[0] == 0:
             _, l, r, b, c = q
-            LST.apply_range(l,r,(b,c))
+            LST.apply_range(l,r,(b<<32)+c)
         else:
             _, l, r = q
-            print(LST.fold(l,r))
+            print(LST.fold(l,r) >> 32)
 
 if __name__ == '__main__':
     main()
