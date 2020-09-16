@@ -38,6 +38,23 @@ sys.setrecursionlimit(1000000)
 
 # モノイドに対して適用可能、Nが2冪でなくても良い
 class LazySegTree():
+    '''
+    Affine変換の際の各関数の例
+
+    monoid_identity = 0
+    operator_identity = (1,0)
+
+    def monoid_func(x,y):
+        return (x+y) % MOD
+    def composition(a,b):
+        b0,c0 = a
+        b1,c1 = b
+        return ((b0*b1) % MOD,(b1*c0+c1) % MOD)
+    def effect(x,a,r):
+        b,c = a
+        return (b*x+c*r) % MOD
+    '''
+
     def __init__(self, initial_values, monoid_func, composition, effect, monoid_identity, operator_identity):
         self.N = len(initial_values)
         self.monoid_func = monoid_func
