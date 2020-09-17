@@ -37,7 +37,8 @@ INF = float("inf")
 sys.setrecursionlimit(1000000)
 
 def main():
-    N = I()
+    D, T, S = LI()
+    print("Yes" if D <= T * S else "No")
 
 if __name__ == '__main__':
     main()
