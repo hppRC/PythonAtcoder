@@ -1,6 +1,6 @@
 
 # モノイドに対して適用可能、Nが2冪でなくても良い
-class LazySegTree():
+class LazySegmentTree():
     '''
     Affine変換の際の各関数の例
 
