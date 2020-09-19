@@ -29,48 +29,56 @@ dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
 MOD = 1000000007
 
-# reffer to: https://qiita.com/dn6049949/items/afa12d5d079f518de368
-class SegmentTree:
-    # 初期化処理
-    # f : SegmentTreeにのせるモノイド
-    # default : fに対する単位元
-    def __init__(self, size, f=lambda x,y : x+y, default=0):
-        self.size = 2**(size-1).bit_length() # 簡単のため要素数Nを2冪にする
-        self.default = default
-        self.data = [default for _ in range(self.size * 2)]  # 要素を単位元で初期化
-        self.f = f
+# 0-indexed BIT
+class BIT:
+    def __init__(self, li):
+        self.n, self.data = len(li) + 1, [0] + li
+        for i in range(1, self.n):
+            if i + (i & -i) < self.n: self.data[i + (i & -i)] += self.data[i]
 
-    def update(self, i, x):
-        i += self.size
-        self.data[i] = x
+    def add(self, i, a):
+        i += 1
+        while i < self.n:
+            self.data[i] += a
+            i += i & -i
+
+    # sum of [0, i)
+    def acc(self, i):
+        res = 0
         while i > 0:
-            i >>= 1
-            self.data[i] = self.f(self.data[i*2], self.data[i*2+1])
-
-    def query(self, l, r):
-        l += self.size
-        r += self.size
-        lres, rres = self.default, self.default
-        while l < r:
-            if l & 1:
-                lres = self.f(lres, self.data[l])
-                l += 1
-
-            if r & 1:
-                r -= 1
-                rres = self.f(self.data[r], rres) # モノイドでは可換律は保証されていないので演算の方向に注意
-            l >>= 1
-            r >>= 1
-        res = self.f(lres, rres)
+            res += self.data[i]
+            i -= i & -i
         return res
+
+    # sum of [l, r)
+    def get(self, l, r = None):
+        if r is None: r = l+1
+        return self.acc(r) - self.acc(l)
 
 
 def main():
     N, Q = LI()
     C = LI()
-    lr = sorted(enumerate(LIR1(Q)), key=lambda x: x[1][1])
-    print(lr)
+    lr = sorted(enumerate(LIR(Q)), key=lambda x: x[1][1])
+    rightmostIndex = [-1]*(N+1)
+    tree = BIT([0]*N)
+    left, right = 0, 0
+    ans = [None] * Q
 
+    for i, (l, r) in lr:
+        while right < r:
+            if rightmostIndex[C[right]] < 0:
+                rightmostIndex[C[right]] = right
+            else:
+                tree.add(rightmostIndex[C[right]], -1)
+                rightmostIndex[C[right]] = right
+            tree.add(right, 1)
+            right += 1
+
+        ans[i] = tree.get(l-1, r)
+
+
+    print(*ans, sep="\n")
 
 
 if __name__ == '__main__':
