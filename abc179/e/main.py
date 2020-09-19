@@ -8,6 +8,7 @@ import itertools
 import math, fractions
 import sys, copy
 
+
 def L(): return sys.stdin.readline().split()
 def I(): return int(sys.stdin.readline().rstrip())
 def SL(): return list(sys.stdin.readline().rstrip())
@@ -35,22 +36,59 @@ MOD = 1000000007
 INF = float("inf")
 
 sys.setrecursionlimit(1000000)
+class ModInt:
+    def __init__(self, x, MOD=1000000007): self.x, self.MOD = x % MOD, MOD
+    def __str__(self): return str(self.x)
+    def __add__(self, other): return ModInt(self.x + other.x) if isinstance(other, ModInt) else ModInt(self.x + other)
+    def __sub__(self, other): return ModInt(self.x - other.x) if isinstance(other, ModInt) else ModInt(self.x - other)
+    def __mul__(self, other): return ModInt(self.x * other.x) if isinstance(other, ModInt) else ModInt(self.x * other)
+    def __truediv__(self, other): return ModInt(self.x * other.inverse()) if isinstance(other, ModInt) else ModInt(self.x * pow(other, self.MOD - 2, self.MOD))
+    def __pow__(self, other): return ModInt(pow(self.x, other.x, self.MOD)) if isinstance(other, ModInt) else ModInt(pow(self.x, other, self.MOD))
+    def __rsub__(self, other): return ModInt(other.x - self.x) if isinstance(other, ModInt) else ModInt(other - self.x)
+    def __rtruediv__(self, other): return ModInt(other.x * other.inverse()) if isinstance(other, ModInt) else ModInt(other * pow(self.x, self.MOD - 2, self.MOD))
+    def __rpow__(self, other): return ModInt(pow(other.x, self.x, self.MOD)) if isinstance(other, ModInt) else ModInt(pow(other, self.x, self.MOD))
+    __repr__, __radd__, __rmul__ = __str__, __add__, __mul__
+    def inverse(self): return pow(self.x, self.MOD - 2, self.MOD)
 
 def main():
     N, X, M = LI()
-    p = [0] * M
-    p[1] = X
-    for i in range(2, M):
-        p[i] = pow(X, pow(2, i-1, M-1), M)
-    s = 0
-    for v in p:
-        s = (s + v) % M
+    tmp = X
+    s = set()
+    while True:
+        if tmp in s: break
+        s.add(tmp)
+        tmp = (tmp * tmp) % M
 
-    tmp = 0
-    for i in range(N % M):
-        tmp = (tmp + p[i]) % M
+    f = len(s)
+    s = set()
 
-    print((N // M * s % M + tmp) % M)
+    while True:
+        if tmp in s: break
+        s.add(tmp)
+        tmp = (tmp * tmp) % M
+
+    mid = len(s)
+    summid = sum(s)
+    rest = (N - f + mid) % mid
+    cnt = (N - f + mid) // mid
+
+    first = f - mid
+    tmp = X
+    s = set()
+    for _ in range(first):
+        s.add(tmp)
+        tmp = (tmp * tmp) % M
+    first_res = sum(s)
+
+    s = set()
+    for _ in range(rest):
+        s.add(tmp)
+        tmp = (tmp * tmp) % M
+    last_res = sum(s)
+
+    print(first_res+ summid*cnt+ last_res)
+
+
 
 
 if __name__ == '__main__':
