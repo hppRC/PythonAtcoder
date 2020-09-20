@@ -50,7 +50,7 @@ class MaxFlowGraph:
         self.capacities[v][w] = cap
         self.capacities[w][v] = 0
 
-    def bfs(self, s, t):
+    def dinic_bfs(self, s, t):
         self.level = [-1] * self.N
         q = deque([s])
         self.level[s] = 0
@@ -63,7 +63,7 @@ class MaxFlowGraph:
                     q.append(w)
         return False
 
-    def dfs(self, s, t, limit):
+    def dinic_dfs(self, s, t, limit):
         st = [t]
         while st:
             v = st[-1]
@@ -88,12 +88,12 @@ class MaxFlowGraph:
             self.capacities[st[i+1]][st[i]] -= flow
         return flow
 
-    def flow(self, s, t, flow_limit=18446744073709551615):
+    def dinic_flow(self, s, t, flow_limit=18446744073709551615):
         flow = 0
-        while flow < flow_limit and self.bfs(s, t):
+        while flow < flow_limit and self.dinic_bfs(s, t):
             self.it = [0]*self.N
             while flow < flow_limit:
-                f = self.dfs(s, t, flow_limit - flow)
+                f = self.dinic_dfs(s, t, flow_limit - flow)
                 if not f: break
                 flow += f
         return flow
@@ -135,7 +135,7 @@ def main():
                     if 0 <= ny < N and 0 <= nx < M and S[y][x] == "." and S[ny][nx] == ".":
                         g.add_edge(M*ny+nx, M*y+x)
 
-    print(g.flow(s, t))
+    print(g.dinic_flow(s, t))
 
     # blackから考える
     for u in range(N*M+2):
