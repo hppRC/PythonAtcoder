@@ -1,0 +1,53 @@
+{
+  "contest": {
+    "id": "arc050",
+    "title": "AtCoder Regular Contest 050",
+    "url": "https://atcoder.jp/contests/arc050"
+  },
+  "tasks": [
+    {
+      "id": "arc050_a",
+      "label": "A",
+      "title": "大文字と小文字",
+      "url": "https://atcoder.jp/contests/arc050/tasks/arc050_a",
+      "directory": {
+        "path": "a",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "arc050_b",
+      "label": "B",
+      "title": "花束",
+      "url": "https://atcoder.jp/contests/arc050/tasks/arc050_b",
+      "directory": {
+        "path": "b",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "arc050_c",
+      "label": "C",
+      "title": "LCM 111",
+      "url": "https://atcoder.jp/contests/arc050/tasks/arc050_c",
+      "directory": {
+        "path": "c",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "arc050_d",
+      "label": "D",
+      "title": "Suffix Concat",
+      "url": "https://atcoder.jp/contests/arc050/tasks/arc050_d",
+      "directory": {
+        "path": "d",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    }
+  ]
+}
