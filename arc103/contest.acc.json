@@ -1,0 +1,53 @@
+{
+  "contest": {
+    "id": "arc103",
+    "title": "AtCoder Regular Contest 103",
+    "url": "https://atcoder.jp/contests/arc103"
+  },
+  "tasks": [
+    {
+      "id": "arc103_a",
+      "label": "C",
+      "title": "/\\/\\/\\/",
+      "url": "https://atcoder.jp/contests/arc103/tasks/arc103_a",
+      "directory": {
+        "path": "c",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "arc103_b",
+      "label": "D",
+      "title": "Robot Arms",
+      "url": "https://atcoder.jp/contests/arc103/tasks/arc103_b",
+      "directory": {
+        "path": "d",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "arc103_c",
+      "label": "E",
+      "title": "Tr/ee",
+      "url": "https://atcoder.jp/contests/arc103/tasks/arc103_c",
+      "directory": {
+        "path": "e",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "arc103_d",
+      "label": "F",
+      "title": "Distance Sums",
+      "url": "https://atcoder.jp/contests/arc103/tasks/arc103_d",
+      "directory": {
+        "path": "f",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    }
+  ]
+}
