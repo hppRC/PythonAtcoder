@@ -38,9 +38,48 @@ sys.setrecursionlimit(1000000)
 
 def main():
     N = I()
-    AB = LIR(N)
+    A = LI()
 
-    
+    ans = 0
+
+    X = 0
+    left = 0
+    for right in range(N):
+        while X ^ A[right] != X + A[right]:
+            X ^= A[left]
+            left += 1
+        ans += right - left + 1
+        X ^= A[right]
+
+    print(ans)
+
+
+
+# def main():
+#     N = I()
+#     A = LI()
+
+#     ans = 0
+#     left, right = 0, 0
+#     xor = 0
+#     acc = 0
+#     while right < N:
+#         while right < N:
+#             xor ^= A[right]
+#             acc += A[right]
+#             right += 1
+#             if xor != acc: break
+#             ans += right - left
+#         if xor == acc: break
+
+#         while left <= right:
+#             xor ^= A[left]
+#             acc -= A[left]
+#             left += 1
+#             if xor == acc: break
+#         ans += right - left
+#     print(ans)
+
 
 
 if __name__ == '__main__':

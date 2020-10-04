@@ -38,10 +38,6 @@ sys.setrecursionlimit(1000000)
 
 def main():
     N = I()
-    AB = LIR(N)
-
-    
-
 
 if __name__ == '__main__':
     main()
