@@ -1,0 +1,53 @@
+{
+  "contest": {
+    "id": "arc082",
+    "title": "AtCoder Regular Contest 082",
+    "url": "https://atcoder.jp/contests/arc082"
+  },
+  "tasks": [
+    {
+      "id": "arc082_a",
+      "label": "C",
+      "title": "Together",
+      "url": "https://atcoder.jp/contests/arc082/tasks/arc082_a",
+      "directory": {
+        "path": "c",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "arc082_b",
+      "label": "D",
+      "title": "Derangement",
+      "url": "https://atcoder.jp/contests/arc082/tasks/arc082_b",
+      "directory": {
+        "path": "d",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "arc082_c",
+      "label": "E",
+      "title": "ConvexScore",
+      "url": "https://atcoder.jp/contests/arc082/tasks/arc082_c",
+      "directory": {
+        "path": "e",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "arc082_d",
+      "label": "F",
+      "title": "Sandglass",
+      "url": "https://atcoder.jp/contests/arc082/tasks/arc082_d",
+      "directory": {
+        "path": "f",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    }
+  ]
+}
