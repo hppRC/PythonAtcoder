@@ -19,8 +19,15 @@ dire = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 dire8 = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
 MOD = 1000000007
 
+def is_parindrome(s):
+    for i in range(math.ceil(len(s)/2)):
+        if s[i] != s[-i-1]: return False
+    return True
+
 def main():
-    N = I()
+    s = S()
+    print("Yes" if is_parindrome(s) and is_parindrome(s[:(len(s)-1)//2]) and is_parindrome(s[(len(s)+1)//2:]) else "No")
+
 
 if __name__ == '__main__':
     main()
