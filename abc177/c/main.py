@@ -38,6 +38,13 @@ sys.setrecursionlimit(1000000)
 
 def main():
     N = I()
+    A = LI()
+    cum = list(itertools.accumulate(A))
+    ans = 0
+
+    for i in range(N):
+        ans = (ans + A[i] * (cum[-1] - cum[i])) % MOD
+    print(ans % MOD)
 
 if __name__ == '__main__':
     main()
