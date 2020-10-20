@@ -37,7 +37,17 @@ INF = float("inf")
 sys.setrecursionlimit(1000000)
 
 def main():
-    N = I()
+    S = SL()
+    T = SL()
+
+    for _ in range(102):
+        S = [S[-1]] + S[:-1]
+        if S == T:
+            print("Yes")
+            return
+
+    print("No")
+
 
 if __name__ == '__main__':
     main()
