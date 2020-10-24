@@ -4,7 +4,7 @@ from bisect import bisect_left, bisect_right
 from functools import reduce, lru_cache
 from heapq import heappush, heappop, heapify
 
-import itertools
+from itertools import *
 import math, fractions
 import sys, copy
 
@@ -24,6 +24,9 @@ def LSR(n): return [LS() for _ in range(n)]
 
 def perm(n, r): return math.factorial(n) // math.factorial(r)
 def comb(n, r): return math.factorial(n) // (math.factorial(r) * math.factorial(n-r))
+def powerset(iterable):
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
 
 def make_list(n, *args, default=0): return [make_list(*args, default=default) for _ in range(n)] if args else [default for _ in range(n)]
 
@@ -38,6 +41,15 @@ sys.setrecursionlimit(1000000)
 
 def main():
     N = I()
+    rest = []
+    for i in range(1, math.ceil(math.sqrt(N))+1):
+        if N % i == 0:
+            rest.append(N//i)
+            rest.append(i)
+
+    rest = sorted(list(set(rest)))
+    for x in rest:
+        print(x)
 
 if __name__ == '__main__':
     main()

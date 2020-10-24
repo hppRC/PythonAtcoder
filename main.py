@@ -40,8 +40,7 @@ INF = float("inf")
 sys.setrecursionlimit(1000000)
 
 def main():
-    # N = I()
-    print(list(powerset(i*i for i in range(3))))
+    N = I()
 
 if __name__ == '__main__':
     main()
