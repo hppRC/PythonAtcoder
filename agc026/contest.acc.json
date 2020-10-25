@@ -1,0 +1,75 @@
+{
+  "contest": {
+    "id": "agc026",
+    "title": "AtCoder Grand Contest 026",
+    "url": "https://atcoder.jp/contests/agc026"
+  },
+  "tasks": [
+    {
+      "id": "agc026_a",
+      "label": "A",
+      "title": "Colorful Slimes 2",
+      "url": "https://atcoder.jp/contests/agc026/tasks/agc026_a",
+      "directory": {
+        "path": "a",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "agc026_b",
+      "label": "B",
+      "title": "rng_10s",
+      "url": "https://atcoder.jp/contests/agc026/tasks/agc026_b",
+      "directory": {
+        "path": "b",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "agc026_c",
+      "label": "C",
+      "title": "String Coloring",
+      "url": "https://atcoder.jp/contests/agc026/tasks/agc026_c",
+      "directory": {
+        "path": "c",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "agc026_d",
+      "label": "D",
+      "title": "Histogram Coloring",
+      "url": "https://atcoder.jp/contests/agc026/tasks/agc026_d",
+      "directory": {
+        "path": "d",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "agc026_e",
+      "label": "E",
+      "title": "Synchronized Subsequence",
+      "url": "https://atcoder.jp/contests/agc026/tasks/agc026_e",
+      "directory": {
+        "path": "e",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "agc026_f",
+      "label": "F",
+      "title": "Manju Game",
+      "url": "https://atcoder.jp/contests/agc026/tasks/agc026_f",
+      "directory": {
+        "path": "f",
+        "testdir": "test",
+        "submit": "main.py"
+      }
+    }
+  ]
+}
