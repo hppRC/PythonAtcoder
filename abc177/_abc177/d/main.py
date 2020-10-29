@@ -71,7 +71,7 @@ def main():
     uf = UnionFind(N)
     for a, b in AB: uf.union(a, b)
     
-    print(max(len(v) for v in uf.all_groups().values()))
+    print(uf.all_groups())
 
 if __name__ == '__main__':
     main()
