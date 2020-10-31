@@ -37,7 +37,18 @@ INF = float("inf")
 sys.setrecursionlimit(1000000)
 
 def main():
-    N = I()
+    X, Y, A, B = LI()
+    ans = 0
+    C = X * (A - 1)
+    while C <= B:
+        X *= A
+        C = X * (A - 1)
+        ans += 1
+    ans += (Y - X) // B
+    X += B * ((Y - X) // B)
+    if X == Y: ans -= 1
+    print(ans)
+
 
 if __name__ == '__main__':
     main()
