@@ -4,7 +4,7 @@ from bisect import bisect_left, bisect_right
 from functools import reduce, lru_cache
 from heapq import heappush, heappop, heapify
 
-import itertools
+from itertools import *
 import math, fractions
 import sys, copy
 
@@ -24,6 +24,9 @@ def LSR(n): return [LS() for _ in range(n)]
 
 def perm(n, r): return math.factorial(n) // math.factorial(r)
 def comb(n, r): return math.factorial(n) // (math.factorial(r) * math.factorial(n-r))
+def powerset(iterable):
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
 
 def make_list(n, *args, default=0): return [make_list(*args, default=default) for _ in range(n)] if args else [default for _ in range(n)]
 
@@ -37,17 +40,33 @@ INF = float("inf")
 sys.setrecursionlimit(1000000)
 
 def main():
-    X, Y, A, B = LI()
+    N, K = LI()
+    S = SL()
+
+    tmp = []
+    cnt = 1
+    for i in range(1, N):
+        if S[i-1] == S[i]:
+            cnt += 1
+        else:
+            tmp.append((cnt, abs(int(S[i-1]) - 1)))
+            cnt = 1
+    tmp.append((cnt, abs(int(S[-1]) - 1)))
+
     ans = 0
-    C = X * (A - 1)
-    while C <= B and X * A < Y:
-        X *= A
-        C = X * (A - 1)
-        ans += 1
-    ans += (Y - X) // B
-    X += B * ((Y - X) // B)
-    if X == Y: ans -= 1
+    left = 0
+    now = 0
+    k = 0
+    for right in range(len(tmp)):
+        now += tmp[right][0]
+        k += tmp[right][1]
+        while k > K:
+            now -= tmp[left][0]
+            k -= tmp[left][1]
+            left += 1
+        ans = max(ans, now)
     print(ans)
+
 
 
 if __name__ == '__main__':
