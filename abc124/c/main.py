@@ -40,7 +40,10 @@ INF = float("inf")
 sys.setrecursionlimit(1000000)
 
 def main():
-    N = I()
+    S = SL()
+    L1 = [str(i % 2) for i in range(len(S))]
+    L2 = [str((i+1) % 2) for i in range(len(S))]
+    print(min(sum(1 for ch, l1 in zip(S, L1) if ch != l1), sum(1 for ch, l2 in zip(S, L2) if ch != l2)))
 
 if __name__ == '__main__':
     main()
