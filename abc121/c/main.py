@@ -40,7 +40,19 @@ INF = float("inf")
 sys.setrecursionlimit(1000000)
 
 def main():
-    N = I()
+    N, M = LI()
+    AB = sorted(LIR(N))
+    count = 0
+    now = 0
+    ans = 0
+    while count < M:
+        if AB[now][1] == 0:
+            now += 1
+        ans += AB[now][0]
+        count += 1
+        AB[now][1] -= 1
+    print(ans)
+
 
 if __name__ == '__main__':
     main()
