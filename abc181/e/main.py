@@ -40,7 +40,24 @@ INF = float("inf")
 sys.setrecursionlimit(1000000)
 
 def main():
-    N = I()
+    N, M = LI()
+    H = sorted(LI())
+    W = LI()
+
+    r1 = [H[i+1]-H[i] for i in range(0, N-1, 2)]
+    c1 = [0] + list(accumulate(r1))
+    r2 = [H[i+1]-H[i] for i in range(1, N-1, 2)]
+    c2 = [0] + list(accumulate(r2))
+
+    ans = INF
+
+    for w in W:
+        i = bisect_left(H, w)
+        ans = min(ans, abs(H[(i//2)*2] - w) + c1[i//2] + c2[-1] - c2[i//2])
+    print(ans)
+
+
+
 
 if __name__ == '__main__':
     main()
